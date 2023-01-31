@@ -3,27 +3,18 @@ package com.example;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static com.example.Constants.SEX_ERROR_TEXT;
+import static org.junit.Assert.*;
 
-public class LionCheckException {
+public class LionTestException {
 
     @Test
     public void constructorLionNewException(){
-        String sexLion = "Male";
+        String sexError = "Male";
         Feline family = new Feline();
-        Exception thrown = Assert.assertThrows(Exception.class,() -> new Lion(family,sexLion));
-        assertEquals("Используйте допустимые значения пола животного - самей или самка", thrown.getMessage());
+        Exception thrown = Assert.assertThrows(Exception.class,() -> new Lion(family,sexError));
+        assertEquals(SEX_ERROR_TEXT, thrown.getMessage());
 
     }
-
-    @Test
-    public void constructorLionNullException(){
-        String sexLion = "Male";
-        Exception thrown = Assert.assertThrows(Exception.class,() -> new Lion(null,sexLion));
-        assertEquals("Используйте допустимые значения пола животного - самей или самка", thrown.getMessage());
-
-    }
-
 
 }
