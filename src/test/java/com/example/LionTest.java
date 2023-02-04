@@ -39,7 +39,7 @@ public class LionTest {
     @Test
     public void constructorLionIsFeline() throws Exception {
         Lion lion = new Lion(family, sex);
-        assertEquals(lion.feline, family);
+        assertEquals(family, lion.feline);
     }
 
     @Test

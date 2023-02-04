@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class FelineTestGetKittens {
-    
+
     int numb_kittens;
     Feline feline = new Feline();
 
