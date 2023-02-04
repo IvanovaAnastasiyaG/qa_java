@@ -1,57 +1,59 @@
 package com.example;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static com.example.Constants.*;
 import static org.junit.Assert.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AlexTest {
+
+    @Mock
+    Feline feline;
 
     @Test
     public void constructorAlexEqualsLinkFeline() throws Exception {
-        Feline feline = new Feline();
         Alex alex = new Alex(feline);
-        assertEquals(alex.feline, feline);
+        assertEquals(feline, alex.feline);
     }
 
     @Test
     public void constructorAlexIsMale() throws Exception {
-        Feline feline = new Feline();
         Alex alex = new Alex(feline);
-        assertEquals(alex.hasMane, ALEX_HAS_MANE);
+        assertEquals(ALEX_HAS_MANE, alex.hasMane);
     }
 
     @Test
     public void doesHaveManeAlexTrue() throws Exception {
-        Feline feline = new Feline();
         Alex alex = new Alex(feline);
         assertEquals(ALEX_HAS_MANE, alex.doesHaveMane());
     }
 
     @Test
     public void getFriendsAlexListStringFriends() throws Exception{
-        Feline feline = new Feline();
         Alex alex = new Alex(feline);
         assertEquals(ALEX_FRIENDS, alex.getFriends());
     }
 
     @Test
     public void getPlaceOfLivingAlexZoo() throws Exception{
-        Feline feline = new Feline();
         Alex alex = new Alex(feline);
         assertEquals(ALEX_HOME, alex.getPlaceOfLiving());
     }
 
     @Test
     public void getKittensAlexZero() throws Exception{
-        Feline feline = new Feline();
         Alex alex = new Alex(feline);
-        assertEquals(COUNT_ALEX_KITTENS, alex.getKittens());
+        assertEquals(NUMB_ALEX_KITTENS, alex.getKittens());
     }
 
     @Test
     public void getFoodAlexListFoodOfPredator() throws Exception{
-        Feline feline = new Feline();
+        Mockito.when(feline.getFood(PREDATOR)).thenReturn(PREDATOR_FOOD);
         Alex alex = new Alex(feline);
         assertEquals(PREDATOR_FOOD, alex.getFood());
     }

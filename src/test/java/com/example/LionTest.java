@@ -1,10 +1,12 @@
 package com.example;
 
+import org.junit.Before;
 import org.junit.Test;
-
 import org.junit.runner.RunWith;
-
 import org.junit.runners.Parameterized;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import static com.example.Constants.*;
 import static org.junit.Assert.*;
@@ -12,35 +14,38 @@ import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
 public class LionTest {
 
-    Feline family;
+    @Before
+    public void init() {
+        MockitoAnnotations.initMocks(this);
+    }
     String sex;
     Boolean hasMane;
+    @Mock
+    Feline family;
 
-    public LionTest(Feline feline, String sex, boolean hasMane){
+    public LionTest(String sex, boolean hasMane) {
         this.sex = sex;
-        this.family = feline;
         this.hasMane = hasMane;
-
     }
 
     @Parameterized.Parameters
     public static Object[][] getLionData() {
         return new Object[][] {
-                { new Feline(), FEMALE, false },
-                { new Feline(), MALE, true },
+                { FEMALE, false },
+                { MALE, true },
         };
-    }
-
-    @Test
-    public void constructorLionHasMane() throws Exception {
-        Lion lion = new Lion(family, sex);
-        assertEquals(hasMane, lion.hasMane);
     }
 
     @Test
     public void constructorLionIsFeline() throws Exception {
         Lion lion = new Lion(family, sex);
         assertEquals(lion.feline, family);
+    }
+
+    @Test
+    public void constructorLionHasMane() throws Exception {
+        Lion lion = new Lion(family, sex);
+        assertEquals(hasMane, lion.hasMane);
     }
 
     @Test
@@ -51,13 +56,15 @@ public class LionTest {
 
     @Test
     public void getFoodLionListFoodOfPredator() throws Exception{
+        Mockito.when(family.getFood(PREDATOR)).thenReturn(PREDATOR_FOOD);
         Lion lion = new Lion(family, sex);
         assertEquals(PREDATOR_FOOD, lion.getFood());
     }
 
     @Test
     public void getKittensLionDefaultOne() throws Exception{
+        Mockito.when(family.getKittens()).thenReturn(NUMB_FELINE_KITTENS_DEFAULT);
         Lion lion = new Lion(family, sex);
-        assertEquals(COUNT_KITTENS_INIT_VALUE, lion.getKittens());
+        assertEquals(NUMB_FELINE_KITTENS_DEFAULT, lion.getKittens());
     }
 }

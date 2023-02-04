@@ -1,47 +1,45 @@
 package com.example;
 
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static com.example.Constants.*;
 import static org.junit.Assert.*;
 
-@RunWith(MockitoJUnitRunner.class)
 public class FelineTest {
+
+    Feline feline = new Feline();
 
     @Test
     public void eatMeatFelineListFoodOfPredator() throws Exception{
-        Feline feline = new Feline();
         assertEquals(PREDATOR_FOOD, feline.eatMeat());
     }
 
     @Test
+    public void getFoodPredatorListFoodPredator() throws Exception {
+        assertEquals(PREDATOR_FOOD, feline.getFood(PREDATOR));
+    }
+
+    @Test
+    public void getFoodHerbivoreListFoodHerbivore() throws Exception {
+        assertEquals(HERBIVORE_FOOD, feline.getFood(HERBIVORE));
+    }
+
+    @Test
+    public void getFoodErrorFamilyException(){
+        String errorFamily = MALE;
+        Exception thrown = Assert.assertThrows(Exception.class,() -> feline.getFood(errorFamily));
+        assertEquals(FAMILY_ERROR_TEXT, thrown.getMessage());
+
+    }
+
+    @Test
     public void getFamilyFelineEqualsFeline() {
-        Feline feline = new Feline();
         assertEquals(FELINE, feline.getFamily());
     }
 
-    @Mock
-    Feline felineMock;
-
     @Test
-    public void getKittensOneInitValue() {
-        Mockito.when(felineMock.getKittens()).thenReturn(1);
-        assertEquals(COUNT_KITTENS_INIT_VALUE, felineMock.getKittens());
-    }
-
-    @Test
-    public void getKittensSixSurviveThree() {
-        Mockito.when(felineMock.getKittens(6)).thenReturn(3);
-        assertEquals(AVERAGE_SURVIVE_KITTENS, felineMock.getKittens(6));
-    }
-
-    @Test
-    public void getKittensMinusOneMinValueZero() {
-        Mockito.when(felineMock.getKittens(-1)).thenReturn(0);
-        assertEquals(COUNT_KITTENS_MIN_VALUE, felineMock.getKittens(-1));
+    public void getKittensNullReturnOne() {
+        assertEquals(NUMB_FELINE_KITTENS_DEFAULT, feline.getKittens());
     }
 }
